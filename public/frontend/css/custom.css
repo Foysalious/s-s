@@ -1,0 +1,203 @@
+@font-face{
+	font-family: Brusher;
+	src: url(../fonts/Brusher.ttf) format("truetype");
+}
+html{
+    scroll-behavior: smooth;
+}
+h1{
+    font-family: Brusher;
+    font-size: 70px;
+    color: #f6bb6b;
+}
+.banner-carousel,
+.banner-carousel .owl-stage-outer,
+.banner-carousel .owl-stage-outer .owl-stage,
+.banner-carousel .owl-stage-outer .owl-stage .owl-item.active,
+.banner-carousel .owl-stage-outer .owl-stage .owl-item.active .item{
+     height: 100vh;
+     position: relative;
+}
+.banner-carousel .item{
+     background-position: center;
+     background-size: cover;
+     background-repeat: no-repeat;
+}
+.banner-overlay{
+     background: rgba(1, 1, 1, 0.7);
+     position: absolute;
+     top: 0;
+     left: 0;
+     height: 100%;
+     width: 100%;
+}
+
+.banner-carousel .item .row{
+     position: absolute;
+     top: 50%;
+     transform: translateY(-50%);
+     left: 0;
+     width: 100%;
+}
+.nav-header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 15;
+}
+.banner-logo{
+     width: 200px!important;
+     display: block;
+     margin: 0 auto;
+}
+.m-t-15{
+    margin-top: 15px;
+}
+.m-t-30{
+    margin-top: 30px;
+}
+.m-b-30{
+    margin-bottom: 30px;
+}
+.img-fluid{
+    width: 100%;
+}
+.banner-carousel .owl-dots{
+    position: absolute;
+    width: 100%;
+    height: 10%;
+    z-index: 8;
+    bottom: 0;
+}
+button:focus{
+    outline: none;
+}
+.banner-carousel .owl-dots button span{
+    background: #f6bb6b!important;
+}
+a:hover{
+    text-decoration: none;
+}
+
+.form-control:focus{
+    border-color: #f6bb6b;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(246 187 107);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(246 187 107);
+}
+.reservation-btn{
+    
+    border: none;
+    color: #f6bb6b;
+    background: white;
+    padding: 15px;
+}
+.active-reservation{
+    background: #f6bb6b;
+    color: white;
+}
+.online-reservation-form{
+    display: none;
+}
+.contact-form-button{
+    border: none;
+    background: #f6bb6b;
+    color: white;
+    padding: 15px;
+}
+.reservation-button{
+    text-align: center;
+}
+.reservation-button a{
+    border: none;
+    background: #f6bb6b;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 30px;
+    display: inline-block;
+}
+.banner-overlay h1, .banner-overlay h3{
+    margin: 15px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* main menu start */
+.main-menu{
+    padding: 50px 0;
+}
+.main-menu .left h3{
+    position: relative;
+    margin: 15px 0;
+    color: #f6bb6b;
+}
+.main-menu .left h3::after{
+    content: "";
+}
+.menu-food-item{
+    border: 1px solid #8e8279;
+    border-style: dashed;
+}
+.menu-food-item:hover{
+    border: 1px solid #f6bb6b;
+    border-style: dashed;
+}
+.menu-food-item p{
+    text-align: justify;
+    margin: 15px 0;
+}
+.menu-image{
+    margin-bottom: 15px;
+}
+.lec_slider_firefly{
+    z-index: 0;
+}
+/* main menu end */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* gallery section start */
+.gallery-section{
+    padding: 50px 0;
+}
+.gallery-section .row{
+    column-count: 3;
+    column-gap: 0;
+}
+.gallery-image{
+    overflow: hidden;
+}
+.gallery-image img{
+    transition: 0.4s ease-in-out;
+}
+.gallery-image img:hover{
+    transform: scale(1.1);
+    transition: 0.4s ease-in-out;
+}
+/* gallery section end */
