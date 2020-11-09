@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\openDayController;
 use App\Http\Controllers\Backend\orderController;
 use App\Http\Controllers\Backend\reservationController;
 use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\specialitiesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\templateController;
 use App\Http\Controllers\frontendController;
@@ -96,6 +97,14 @@ Route::group(['prefix' => 'category'], function(){
     Route::post('/store',[categoryController::class,'store'])->name('categoryStore');
     Route::post('/update/{category:id}',[categoryController::class,'update'])->name('categoryUpdate');
     Route::post('/delete/{category:id}',[categoryController::class,'destroy'])->name('categoryDelete');
+});
+
+
+Route::group(['prefix' => 'specialization'], function(){
+    Route::get('/',[specialitiesController::class, 'index'])->name('specialityShow');
+    Route::post('/store',[specialitiesController::class,'store'])->name('specialityStore');
+    Route::post('/update/{specialities:id}',[specialitiesController::class,'update'])->name('specialityUpdate');
+    Route::post('/delete/{specialities:id}',[specialitiesController::class,'destroy'])->name('specialityDelete');
 });
 
 Route::group(['prefix' => 'adminmenu'], function(){

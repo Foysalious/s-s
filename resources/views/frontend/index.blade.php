@@ -240,7 +240,7 @@
 
 
      <!-- contact form section -->
-     <section class="lec_section lec_image_bck lec_fixed lec_wht_txt" data-stellar-background-ratio="0.2" data-image="images/contact-form.jpg')}}" data-bottom-top="@data-animation:noactive" data-200-bottom="@data-animation:active" id="reservation">
+     <section class="lec_section lec_image_bck lec_fixed lec_wht_txt" data-stellar-background-ratio="0.2" data-image="{{asset('frontend/images/contact-form.jpg')}}')}}" data-bottom-top="@data-animation:noactive" data-200-bottom="@data-animation:active" id="reservation">
           <!-- Over -->
           <div class="lec_over" data-color="#000" data-opacity="0.8"></div>
 

@@ -184,6 +184,16 @@
                             </div>
                             </a>
                         </li>
+                        <li >
+                            <a href="{{route('specialityShow')}}">
+                            <div class="left">
+                               Specialization
+                            </div>
+                            <div class="right">
+                                <i class="fas fa-bars"></i>
+                            </div>
+                            </a>
+                        </li>
 
                         
                        

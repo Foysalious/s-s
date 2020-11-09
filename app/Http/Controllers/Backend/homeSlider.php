@@ -91,11 +91,11 @@ class homeSlider extends Controller
      */
     public function update(Slider $slider,Request $request)
     {
-        $slider->title=$slider->title;
+        $slider->title=$request->title;
 
          if( $request->image ){
-            if( File::exists('images/slider/'. $slider->image) ){
-                File::delete('images/slider/'. $slider->image);
+            if( File::exists('images/slider/'. $request->image) ){
+                File::delete('images/slider/'. $request->image);
             }
             $image  = $request->file('image');
             $img    = time() .Str::random(12). '.' . $image->getClientOriginalExtension();
