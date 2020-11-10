@@ -195,6 +195,17 @@
                             </a>
                         </li>
 
+                        <li >
+                            <a href="{{route('configShow')}}">
+                            <div class="left">
+                               Pricing
+                            </div>
+                            <div class="right">
+                                <i class="fas fa-bars"></i>
+                            </div>
+                            </a>
+                        </li>
+
                         
                        
                        

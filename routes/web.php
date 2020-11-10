@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\categoryController;
 use App\Http\Controllers\Backend\ChefController;
+use App\Http\Controllers\Backend\configController;
 use App\Http\Controllers\Backend\contactController;
 use App\Http\Controllers\Backend\galleryController;
 use App\Http\Controllers\Backend\homeSlider;
@@ -108,10 +109,17 @@ Route::group(['prefix' => 'specialization'], function(){
 });
 
 Route::group(['prefix' => 'adminmenu'], function(){
-    Route::get('/',[menuController::class, 'index'])->name('menuShow');
+    Route::get('/menu',[menuController::class, 'index'])->name('menuShow');
     Route::post('/store',[menuController::class,'store'])->name('menuStore');
     Route::post('/update/{menu:id}',[menuController::class,'update'])->name('menuUpdate');
     Route::post('/delete/{menu:id}',[menuController::class,'destroy'])->name('menuDelete');
+});
+
+Route::group(['prefix' => 'adminConfig'], function(){
+    Route::get('/',[configController::class, 'index'])->name('configShow');
+    Route::post('/store',[configController::class,'store'])->name('configStore');
+    Route::post('/update/{config:id}',[configController::class,'update'])->name('configUpdate');
+    Route::post('/delete/{config:id}',[configController::class,'destroy'])->name('configDelete');
 });
 
 
