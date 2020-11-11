@@ -8,12 +8,12 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-class ReservationMail extends Mailable
+class PaidReservationMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $reservation;
 
-    /** 
+    /**
      * Create a new message instance.
      *
      * @return void
@@ -30,6 +30,6 @@ class ReservationMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.reservation',['resarvation' => $this->reservation]);
+        return $this->markdown('emails.PaidReservation',['resarvation' => $this->reservation]);
     }
 }

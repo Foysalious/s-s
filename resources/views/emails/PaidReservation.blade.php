@@ -13,7 +13,7 @@
 <div>
     <h3>
         <b>
-            Email Address:
+            Email Address
         </b>
     </h3>
     <p>{{ $reservation['email'] }}</p>
@@ -56,5 +56,13 @@
     
 </div>
 
-
+<div>
+    <h3>
+        <b>
+           QR Code
+        </b>
+    </h3>
+    {!!QrCode::size(200)->generate($reservation['random']);!!}
+    
+</div>
 @endcomponent

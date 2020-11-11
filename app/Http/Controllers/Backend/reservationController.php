@@ -7,6 +7,7 @@ use App\Models\reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReservationMail;
+use App\Mail\PaidReservationMail;
 use App\Models\BookingTransaction;
 use App\Models\config;
 use Brian2694\Toastr\Facades\Toastr;
@@ -54,6 +55,7 @@ class reservationController extends Controller
             'adult' => 'required|numeric',
             'child_under_120_cm' => 'required|numeric',
             'child_under_132_cm' => 'required|numeric',
+            'payment_method' => 'required'
         ]);
 
         
@@ -95,8 +97,8 @@ class reservationController extends Controller
 
         if($transaction->save()):
             
-            // Mail::to('foysalrahman112@gmail.com')->send(new ReservationMail($reservation));
-            // Mail::to($reservation->email)->send(new ReservationMail($reservation));
+            Mail::to('foysalrahman112@gmail.com')->send(new ReservationMail($reservation));
+            Mail::to($reservation->email)->send(new ReservationMail($reservation));
 
             return response()->json($reservation, 200);
         endif;
@@ -107,6 +109,7 @@ class reservationController extends Controller
         $transaction->amount = $totalAmount;
         $transaction->reservation_id = $reservation->id;
         $transaction->is_payment_done = false;
+        $transaction->save();
 
         $post_data = [
             'store_id'=> 'foysa5fa23b8d44c3b',
@@ -140,6 +143,55 @@ class reservationController extends Controller
         $transaction->save();
 
         return $transaction->payment_initiation_server_response;
+    }
+
+    public function SSLSuccess(Request $request){
+        $transaction = BookingTransaction::find($request->get('tran_id'));
+        $transaction->payment_validation_server_response = $request->all();
+        $transaction->status = 'SUCCESS';
+        $transaction->is_payment_done = true;
+        $transaction->paid_by = 'Online Payment';
+
+        if($transaction->save()):
+            
+            return redirect()->route('reservation');
+        endif;
+    }
+
+    public function SSLFailed(Request $request){
+        $transaction = BookingTransaction::find($request->get('tran_id'));
+        $transaction->payment_validation_server_response = $request->all();
+        $transaction->status = 'FAILED';
+        $transaction->is_payment_done = true;
+        $transaction->paid_by = 'Online Payment';
+
+        if($transaction->save()):
+            Toastr::success('Reservation Failed');
+            return redirect()->route('reservation');
+        endif;
+    }
+
+    public function SSLCancel(Request $request){
+        $transaction = BookingTransaction::find($request->get('tran_id'));
+        $transaction->payment_validation_server_response = $request->all();
+        $transaction->status = 'CANCELLED';
+        $transaction->is_payment_done = true;
+        $transaction->paid_by = 'Online Payment';
+
+        if($transaction->save()):
+            Toastr::success('Reservation Cancelled');
+            return redirect()->route('reservation');
+        endif;
+    }
+
+    public function SSLIpn(Request $request){
+        $transaction = BookingTransaction::find($request->get('tran_id'));
+        $transaction->payment_validation_server_response = $request->all();
+
+        if($transaction->save()):
+            Toastr::success('Ipn validation success');
+            return redirect()->route('reservation');
+        endif;
     }
 
     /**

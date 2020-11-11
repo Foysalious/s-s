@@ -24,6 +24,10 @@ $(document).ready(function(){
                 if( response.payment_method == 1 ){
                     swal('','Reservation Successfully Done','success')
                 }
+                else{
+                    let redirectURl = JSON.parse(response).GatewayPageURL
+                    return window.location.href = redirectURl
+                }
            
                 $(".ajax-form textarea").val('');
             },

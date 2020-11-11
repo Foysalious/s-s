@@ -169,4 +169,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 
 
 
-
+Route::post('sslcommerz/success',[reservationController::class,'SSLSuccess']);
+Route::post('sslcommerz/failed',[reservationController::class,'SSLFailed']);
+Route::post('sslcommerz/cancel',[reservationController::class,'SSLCancel']);
+Route::post('sslcommerz/ipn',[reservationController::class,'SSLIpn']);

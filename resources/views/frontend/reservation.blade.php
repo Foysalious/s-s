@@ -93,24 +93,32 @@
                     <div class="col-md-12">
                         <textarea class="form-control" placeholder="Message" name="message" rows="6"></textarea>
                     </div>
-
+                    
                     <div class="col-md-12">
                         <div class="booking_price">
                             @foreach(App\Models\config::all() as $config)
                             <p class="text-center" style="max-width: unset; margin-left: 15px;">Amount for {{ $config->name }} : {{ $config->price }}</p>
                             @endforeach
                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="payment_method" id="exampleRadios1" value="1">
-                            <label class="form-check-label" for="exampleRadios1">
+                    </div>
+                    <div class="col-md-12">
+                          <div class="form-check">
+                            <div>
+                                <input class="form-check-input" type="radio" name="payment_method" required  id="exampleRadios2" value="1">
+                                <label class="form-check-label" for="exampleRadios2">
                               On Spot Payment
                             </label>
+                            </div>
                           </div>
+                    </div>
+                    <div class="col-md-12">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="payment_method" id="exampleRadios2" value="2">
-                            <label class="form-check-label" for="exampleRadios2">
+                            <div>
+                                <input class="form-check-input" type="radio" name="payment_method" required  id="exampleRadios2" value="2">
+                                <label class="form-check-label" for="exampleRadios2">
                               Online Payment
                             </label>
+                            </div>
                           </div>
                     </div>
                     <div class="col-md-12">

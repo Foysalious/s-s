@@ -13,6 +13,10 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'addtocart',
-        'delete/*'
+        'delete/*',
+        'sslcommerz/success',
+        'sslcommerz/failed',
+        'sslcommerz/cancel',
+        'sslcommerz/ipn',
     ];
 }
