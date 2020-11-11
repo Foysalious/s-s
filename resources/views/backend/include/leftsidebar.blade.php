@@ -174,7 +174,7 @@
                         <!-- nav single view end -->
 
                         <!-- nav single view start -->
-                        <li >
+                        {{-- <li >
                             <a href="{{route('reservationShow')}}">
                             <div class="left">
                                reservation Info
@@ -183,7 +183,7 @@
                                 <i class="fas fa-bars"></i>
                             </div>
                             </a>
-                        </li>
+                        </li> --}}
                         <li >
                             <a href="{{route('specialityShow')}}">
                             <div class="left">

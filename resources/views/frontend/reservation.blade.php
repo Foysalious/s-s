@@ -40,60 +40,95 @@
 
             <h3 class="lec_gold_subtitle">Reservation Form</h3>
 
-            <div class="row m-b-30">
-                <div class="col-md-12 text-center">
-                    <button class="reservation-btn onspot active-reservation">Reservation On Spot Pay</button>
-                    <button class="reservation-btn online">Reservation Online Pay</button>
-                </div>
+
+            <div class="row">
+                
             </div>
 
             <div class="row on-spot-reservation-form">
-                <form action="">
-                    <div class="col-md-5 col-md-offset-1">
-                        <input type="date" placeholder="Date" class="form-control" required />
-                        <input type="time" placeholder="Time" class="form-control" required />
-                        <input type="text" placeholder="Person Total" class="form-control" required />
-                        <input type="text" placeholder="Child under 120 cm" class="form-control" required />
+                <form action="{{ route('makeOnSpotReservation') }}" class="ajax-form" method="post">
+
+                    <div class="col-md-6">
+                        <input type="date" name="booking_date" placeholder="Date" class="form-control"  />
                     </div>
 
-                    <div class="col-md-5">
-                        <input type="text" placeholder="Name" class="form-control" required />
-                        <input type="email" class="form-control" placeholder="Email" required />
-                        <input type="text" placeholder="Phone" class="form-control" required />
-                        <input type="text" placeholder="Child under 132 cm" class="form-control" required />
+                    <div class="col-md-6">
+                        <input type="time" name="booking_time" placeholder="Time" class="form-control"  />
                     </div>
 
-                    <div class="col-md-10 col-md-offset-1">
-                        <textarea class="form-control" placeholder="Message" rows="6"></textarea>
+                    <div class="col-md-6">
+                        <input type="text" name="adult" oninput="updatePrice()" placeholder="Adult" id="adult_pricing" data-price="{{App\Models\config::where('name', 'Adult')->first()->price}}" class="form-control"  />
+                    </div>
+
+                    <div class="col-md-6">
+                        <input type="text" oninput="updatePrice()" name="child_under_120_cm" id="child_under_120_cm" placeholder="Child under 120 cm" class="form-control" data-price="{{App\Models\config::where('name', 'Child Under 120 cm')->first()->price}}" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <input type="text" name="name" placeholder="Name" class="form-control"  />
+                    </div>
+
+                    <div class="col-md-6">
+                        <input type="email" name="email" class="form-control" placeholder="Email"  />
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="phone" placeholder="Phone" class="form-control"  />
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="child_under_132_cm" id="child_under_132_cm" placeholder="Child under 132 cm" oninput="updatePrice()" data-price="{{App\Models\config::where('name', 'Child under 132cm')->first()->price}}" class="form-control"  />
+                    </div>
+
+                    <div class="col-md-6">
+                        <input type="text" name="city" placeholder="City" class="form-control"  />
+                    </div>
+
+                    <div class="col-md-6">
+                        <input type="text" name="country" placeholder="Country" class="form-control"  />
+                    </div>
+
+                    <div class="col-md-12">
+                        <textarea class="form-control" placeholder="Address" name="address" rows="2"></textarea>
+                    </div>
+
+                    <div class="col-md-12">
+                        <textarea class="form-control" placeholder="Message" name="message" rows="6"></textarea>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="booking_price">
+                            @foreach(App\Models\config::all() as $config)
+                            <p class="text-center" style="max-width: unset; margin-left: 15px;">Amount for {{ $config->name }} : {{ $config->price }}</p>
+                            @endforeach
+                       </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment_method" id="exampleRadios1" value="1">
+                            <label class="form-check-label" for="exampleRadios1">
+                              On Spot Payment
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment_method" id="exampleRadios2" value="2">
+                            <label class="form-check-label" for="exampleRadios2">
+                              Online Payment
+                            </label>
+                          </div>
+                    </div>
+                    <div class="col-md-12">
+                        <p>Total Amount : <span id="total">0</span> BDT</p>
                     </div>
                     <div class="col-md-4 col-md-offset-4">
-                        <input type="submit" class="btn" value="Make reservation">
-                    </div>
-                </form>
-            </div>
+                        <!-- Button trigger modal -->
+                        {{-- <button type="button" class="btn btn-primary payment-modal-button">
+                            Proceed
+                        </button> --}}
+                        
+                        <!-- Modal -->
+                        <div class="payment-modal">
+                            <div class="payment-success">
 
-            <div class="row online-reservation-form">
-                <form action="">
-                    <div class="col-md-5 col-md-offset-1">
-                        <input type="date" placeholder="Date" class="form-control" required />
-                        <input type="time" placeholder="Time" class="form-control" required />
-                        <input type="text" placeholder="Person Total" class="form-control" required />
-                        <input type="text" placeholder="Child under 120 cm" class="form-control" required />
-                        <p class="text-left">Total Amount : 1000 BDT</p>
-                    </div>
-
-                    <div class="col-md-5">
-                        <input type="text" placeholder="Name" class="form-control" required />
-                        <input type="email" class="form-control" placeholder="Email" required />
-                        <input type="text" placeholder="Phone" class="form-control" required />
-                        <input type="text" placeholder="Child under 132 cm" class="form-control" required />
-                    </div>
-
-                    <div class="col-md-10 col-md-offset-1">
-                        <textarea class="form-control" placeholder="Message" rows="6"></textarea>
-                    </div>
-                    <div class="col-md-4 col-md-offset-4">
-                        <input type="submit" class="btn" value="Make reservation">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn">Make reservation</button>
                     </div>
                 </form>
             </div>
@@ -107,5 +142,44 @@
 
 
 </section>
+
+<script>
+    let adult_pricing = document.getElementById("adult_pricing")
+    let child_under_120_cm = document.getElementById('child_under_120_cm')
+    let child_under_132_cm = document.getElementById('child_under_132_cm')
+    let total = document.getElementById('total')
+
+
+
+
+    function updatePrice(){
+        adult = {
+            number : adult_pricing.value | 0,
+            price : parseFloat(adult_pricing.dataset.price)
+        }
+        child120 = {
+            number: child_under_120_cm.value | 0,
+            price :parseFloat(child_under_120_cm.dataset.price)
+        }
+
+        child132 = {
+            number: child_under_132_cm.value | 0,
+            price: parseFloat(child_under_132_cm.dataset.price)
+        }
+
+        let priceTotal = (adult.number*adult.price) + (child120.price*child120.number) + (child132.price*child132.number)
+
+        total.innerHTML = priceTotal
+
+    }
+
+
+
+
+
+
+
+
+</script>
 <!-- Content End -->
 @include('frontend.include.footer')

@@ -34,7 +34,7 @@
             Reservation Date
         </b>
     </h3>
-    <p>{{ $reservation['date'] }}</p>
+    <p>{{ $reservation['booking_date'] }}</p>
 </div>
 
 <div>
@@ -43,7 +43,7 @@
             Reservation Time
         </b>
     </h3>
-    <p>{{ $reservation['time'] }}</p>
+    <p>{{ $reservation['booking_time'] }}</p>
 </div>
 
 <div>

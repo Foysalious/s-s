@@ -42,11 +42,12 @@
      <script src="{{asset('frontend/js/owl.carousel.min.js')}}"></script>
      <script src="{{asset('frontend/js/fencybox.min.js')}}"></script>
      <script src="{{asset('frontend/js/fency.js')}}"></script>
-
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
      <!-- Theme JS -->
      <script src="{{asset('frontend/js/script.js')}}"></script>
 
      <script src="{{asset('frontend/js/custom.js')}}"></script>
+     <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 
 </body>
 

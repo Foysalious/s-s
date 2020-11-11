@@ -20,4 +20,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/reserved', [reservationController::class, 'index'])->name('reservation');

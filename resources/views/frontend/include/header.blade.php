@@ -14,11 +14,13 @@
     <link href="{{asset('frontend/fonts/themify-icons.css')}}" rel="stylesheet" />
     <link href="{{asset('frontend/fonts/stylesheet.css')}}" rel="stylesheet" />
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!--- Font Awesome CSS 5 -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 
     <link rel="shortcut icon" type="image/gif" href="images/fav.png" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/toastr.css') }}"> 
 
     <link rel="stylesheet" href="{{asset('frontend/css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/owl.theme.default.min.css')}}">

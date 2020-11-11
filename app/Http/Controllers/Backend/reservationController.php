@@ -7,6 +7,10 @@ use App\Models\reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReservationMail;
+use App\Models\BookingTransaction;
+use App\Models\config;
+use Brian2694\Toastr\Facades\Toastr;
+use GuzzleHttp\Client;
 
 class reservationController extends Controller
 {
@@ -15,31 +19,14 @@ class reservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
-        $reservation = new reservation();
-        $reservation->name          = $request->name;
-        $reservation->email          = $request->email;
-        $reservation->phone          = $request->phone;
-        $reservation->date          = $request->date;
-        $reservation->time          = $request->time;
-        $reservation->random        = rand(10000,9999999);
-        
-       
-       Mail::to('foysalrahman112@gmail.com')->send(new ReservationMail($reservation));
-       Mail::to($reservation->email )->send(new ReservationMail($reservation));
-       
-        $reservation->save();
-
-        return response()->json($reservation, 200);
-    }
+    
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function index()
     {
         $reservations = reservation::orderBy('id','desc')->get();
         return view('backend.pages.reservation.manage',compact('reservations'));
@@ -51,9 +38,108 @@ class reservationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|digits:11|numeric',
+            'booking_date' => 'required',
+            'booking_time' => 'required',
+            'booking_time' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'country' => 'required',
+            'adult' => 'required|numeric',
+            'child_under_120_cm' => 'required|numeric',
+            'child_under_132_cm' => 'required|numeric',
+        ]);
+
+        
+
+        $reservation = new reservation();
+        $reservation->name = $request->name;
+        $reservation->email = $request->email;
+        $reservation->phone = $request->phone;
+        $reservation->booking_date = $request->booking_date;
+        $reservation->booking_time = $request->booking_time;
+        $reservation->adult = $request->adult;
+        $reservation->child_under_120_cm = $request->child_under_120_cm;
+        $reservation->child_under_132_cm = $request->child_under_132_cm;
+        $reservation->city = $request->city;
+        $reservation->country = $request->country;
+        $reservation->address = $request->address;
+        $reservation->message = $request->message;
+        $reservation->random = rand(10000,9999999);
+        $reservation->payment_method = $request->payment_method;
+
+        $totalAmount =( config::where('name', 'Child Under 120 cm')->first()->price * $reservation->child_under_120_cm) + ($reservation->adult * config::where('name', 'Adult')->first()->price) + ($reservation->child_under_132_cm * config::where('name', 'Child under 132cm')->first()->price);
+
+        if($reservation->save()):
+            if( $request->payment_method == 1 ):
+                return $this->onSpotPayment($reservation, $totalAmount);
+            else:
+                return $this->SSLCommerz($totalAmount, $reservation);
+            endif;
+        endif;
+
+    }
+
+    public function onSpotPayment($reservation, $totalAmount){
+        $transaction = new BookingTransaction();
+        $transaction->amount = $totalAmount;
+        $transaction->reservation_id = $reservation->id;
+        $transaction->paid_by = 'Cash';
+        $transaction->is_payment_done = false;
+
+        if($transaction->save()):
+            
+            // Mail::to('foysalrahman112@gmail.com')->send(new ReservationMail($reservation));
+            // Mail::to($reservation->email)->send(new ReservationMail($reservation));
+
+            return response()->json($reservation, 200);
+        endif;
+    }
+
+    public function SSLCommerz($totalAmount, $reservation){
+        $transaction = new BookingTransaction();
+        $transaction->amount = $totalAmount;
+        $transaction->reservation_id = $reservation->id;
+        $transaction->is_payment_done = false;
+
+        $post_data = [
+            'store_id'=> 'foysa5fa23b8d44c3b',
+            'store_passwd'=> 'foysa5fa23b8d44c3b@ssl',
+            'total_amount'=> $totalAmount,
+            'tran_id' => $transaction->refresh()->id,
+            'currency' => 'BDT',
+            'product_category' => 'Due Amount Pay',
+            'success_url' => 'http://127.0.0.1:8000/sslcommerz/success',
+            'fail_url' => 'http://127.0.0.1:8000/sslcommerz/fail',
+            'cancel_url' => 'http://127.0.0.1:8000/sslcommerz/cancel',
+            'ipn_url' => 'http://127.0.0.1:8000/sslcommerz/ipn',
+            'emi_option' => 0,
+            'cus_name' => $reservation->name,
+            'cus_email' => $reservation->email,
+            'cus_city' => $reservation->city,
+            'cus_country' => $reservation->country,
+            'cus_add1' => $reservation->address,
+            'cus_phone' => $reservation->phone,
+            'shipping_method' => 'NO',
+            'num_of_item' => 1,
+            'product_name' => "Reservation Amount Pay",
+            'product_profile' => 'non-physical-goods',
+            'value_a' => $reservation->id,
+        ];
+
+        $client = new Client();
+        $response = $client->post('https://sandbox.sslcommerz.com/gwprocess/v4/api.php', ['form_params'=>$post_data, 'verify'=>false])->getBody();
+
+        $transaction->payment_initiation_server_response = $response->getContents();
+        $transaction->save();
+
+        return $transaction->payment_initiation_server_response;
     }
 
     /**

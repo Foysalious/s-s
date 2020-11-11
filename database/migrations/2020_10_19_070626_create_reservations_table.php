@@ -18,8 +18,15 @@ class CreateReservationsTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-            $table->string('date');
-            $table->string('random');
+            $table->string('booking_date');
+            $table->time('booking_time');
+            $table->integer('adult');
+            $table->integer('child_under_120_cm');
+            $table->integer('child_under_132_cm');
+            $table->longText('address');
+            $table->longText('message');
+            $table->string('random')->unique();
+            $table->boolean('payment_method');
             $table->timestamps();
         });
     }

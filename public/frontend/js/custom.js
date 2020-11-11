@@ -1,4 +1,44 @@
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+$(document).ready(function(){
+    $(".ajax-form").submit(function(e){
+        e.preventDefault()
+        let $this = $(this);
+        let formData = new FormData(this);
+        $this.find(".has-danger").removeClass('has-error');
+    $this.find(".form-error").remove();
+        
+        $.ajax({
+            type: $this.attr('method'),
+            url: $this.attr('action'),
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function(response){
+                if( response.payment_method == 1 ){
+                    swal('','Reservation Successfully Done','success')
+                }
+           
+                $(".ajax-form textarea").val('');
+            },
+            error: function(response){
+                data = response.responseJSON
+                $.each(data.errors, (key, value) => {
+                    $("[name^="+key+"]").parent().addClass('has-error')
+                    $("[name^="+key+"]").parent().append('<p class="form-error mb-0"><small class="danger text-muted">'+value[0]+'</small></p>');
+                })
+            }
+        })
+    })
+})
+
+
 
 $('.banner-carousel').owlCarousel({
     loop:true,
@@ -66,4 +106,15 @@ $(document).ready(function(){
         $(".on-spot-reservation-form").hide();
         $(".online-reservation-form").show();
     })
+
+    $(".payment-modal-button").click(function(){
+        $(".payment-modal").show();
+        $(".nav-header").css({
+            "zIndex": "0"
+        })
+    })
 })
+
+
+
+

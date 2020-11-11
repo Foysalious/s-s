@@ -44,7 +44,7 @@ h1{
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 15;
+  z-index: 6;
 }
 .banner-logo{
      width: 200px!important;
@@ -201,3 +201,48 @@ a:hover{
     transition: 0.4s ease-in-out;
 }
 /* gallery section end */
+
+
+
+
+
+
+
+
+
+
+
+
+.payment-modal{
+    position: fixed;
+    background: rgba(1,1,1,0.8);
+    top: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    display: none;
+}
+.payment-success{
+    position: absolute;
+    background: white;
+    width: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    height: 50%;
+}
+.ajax-form .form-control{
+    margin-bottom: 30px;
+}
+.has-error{
+    position: relative;
+}
+.form-error {
+    margin-bottom: 15px;
+    position: absolute;
+    z-index: 2;
+    bottom: -10px;
+}
+.form-error  small{
+    color: red;
+}
