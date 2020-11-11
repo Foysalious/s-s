@@ -141,21 +141,20 @@ class reservationController extends Controller
 
         $transaction->payment_initiation_server_response = $response->getContents();
         $transaction->save();
-
+       
         return $transaction->payment_initiation_server_response;
+       
+       
+        
+
+        
     }
 
     public function SSLSuccess(Request $request){
-        $transaction = BookingTransaction::find($request->get('tran_id'));
-        $transaction->payment_validation_server_response = $request->all();
-        $transaction->status = 'SUCCESS';
-        $transaction->is_payment_done = true;
-        $transaction->paid_by = 'Online Payment';
-
-        if($transaction->save()):
+        
             
-            return redirect()->route('reservation');
-        endif;
+        return redirect()->route('reservation');
+       
     }
 
     public function SSLFailed(Request $request){
@@ -172,26 +171,21 @@ class reservationController extends Controller
     }
 
     public function SSLCancel(Request $request){
-        $transaction = BookingTransaction::find($request->get('tran_id'));
-        $transaction->payment_validation_server_response = $request->all();
-        $transaction->status = 'CANCELLED';
-        $transaction->is_payment_done = true;
-        $transaction->paid_by = 'Online Payment';
+      
 
-        if($transaction->save()):
-            Toastr::success('Reservation Cancelled');
-            return redirect()->route('reservation');
-        endif;
+        return redirect()->route('reservation');
+   
     }
 
     public function SSLIpn(Request $request){
         $transaction = BookingTransaction::find($request->get('tran_id'));
         $transaction->payment_validation_server_response = $request->all();
+        $transaction->status = $request->status;
+        $transaction->is_payment_done = true;
 
-        if($transaction->save()):
-            Toastr::success('Ipn validation success');
-            return redirect()->route('reservation');
-        endif;
+        $transaction->save();
+            
+        
     }
 
     /**
@@ -202,7 +196,7 @@ class reservationController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
