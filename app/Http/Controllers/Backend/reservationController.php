@@ -194,9 +194,9 @@ class reservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function getPass(reservation $reservation,Request $request)
     {
-        
+        return view('backend.pages.reservation.getPass',compact('reservation'));
     }
 
     /**
@@ -217,9 +217,17 @@ class reservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(reservation $reservation,Request $request)
     {
-        //
+        $reservation->name=$request->name;
+        $reservation->email=$request->email;
+        $reservation->phone=$request->phone;
+        $reservation->payment_method=$request->payment_method;
+       
+        $reservation->save();
+        Toastr::success('Reservation Updated');
+
+        return redirect()->route('reservationShow');
     }
 
     /**

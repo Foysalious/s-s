@@ -138,6 +138,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::post('/delete-profile/{user:id}', [ProfileController::class, 'destroy'])->name('profile.delete');
     });
 
+    Route::group(['prefix' => 'reservation'], function () {
+        Route::get('/', [reservationController::class, 'index'])->name('reservationShow');
+        Route::post('/store', [reservationController::class, 'store'])->name('reservationStore');
+        Route::post('/update/{reservation:id}', [reservationController::class, 'update'])->name('reservationUpdate');
+        Route::post('/delete/{reservation:id}', [reservationController::class, 'destroy'])->name('reservationDelete');
+        Route::get('/getPass/{reservation:id}', [reservationController::class, 'getPass'])->name('entryPass');
+    });
+
+    
+
     Route::group(['prefix' => 'selling-history'], function () {
 
         //pending order start
