@@ -112,16 +112,7 @@
                                             <form action="{{ route('configUpdate', $price->id) }}" method="post" enctype="multipart/form-data">
                                             @csrf
                                                
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Name</label>
-                                                       
-                                                        <input type="text" class="form-control-file" name="name" value="{{$price->name}}">                               
-                                                    </div>                                      
-                                                </div>    
-                                                                              
-                                            </div>
+                                            
         
                                             <div class="row">
                                                 <div class="col-md-12">
