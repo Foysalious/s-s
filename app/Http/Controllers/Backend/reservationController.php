@@ -33,6 +33,18 @@ class reservationController extends Controller
         return view('backend.pages.reservation.manage',compact('reservations'));
     }
 
+    public function paid()
+    {
+        $reservations = reservation::orderBy('id','desc')->where('payment_method',2)->get();
+        return view('backend.pages.reservation.manage',compact('reservations'));
+    }
+
+
+    public function not_paid()
+    {
+        $reservations = reservation::orderBy('id','desc')->where('payment_method',1)->get();
+        return view('backend.pages.reservation.notPaid',compact('reservations'));
+    }
     /**
      * Store a newly created resource in storage.
      *

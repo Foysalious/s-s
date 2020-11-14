@@ -144,9 +144,11 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::post('/update/{reservation:id}', [reservationController::class, 'update'])->name('reservationUpdate');
         Route::post('/delete/{reservation:id}', [reservationController::class, 'destroy'])->name('reservationDelete');
         Route::get('/getPass/{reservation:id}', [reservationController::class, 'getPass'])->name('entryPass');
+        Route::get('/paid', [reservationController::class, 'paid'])->name('paid');
+        Route::get('/not_paid', [reservationController::class, 'not_paid'])->name('notPaid');
     });
 
-    
+     
 
     Route::group(['prefix' => 'selling-history'], function () {
 

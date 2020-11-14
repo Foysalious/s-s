@@ -174,15 +174,43 @@
                         <!-- nav single view end -->
 
                         <!-- nav single view start -->
-                        <li >
-                            <a href="{{route('reservationShow')}}">
-                            <div class="left">
-                               reservation Info
+                      
+
+                         <!-- nav drop down view start -->
+                         <li>
+                            <div class="row navbar-dropdown-top" id="2">
+                            <div class="col-md-10  col-10">
+                                reservation Info            
+                            </div>    
+                            <div class="col-md-2 col-2 text-right">
+                                <i class="fas fa-angle-down"></i>                            
+                            </div>                      
                             </div>
-                            <div class="right">
-                                <i class="fas fa-bars"></i>
+                            <div class="row navbar-dropdown-child 2">
+                            <div class="col-md-12">
+                                <ul>
+                                    <li>
+                                        <a href="{{ route('reservationShow') }}">
+                                            <i class="fas fa-history" style="margin-right: 5px"></i>
+                                            All Reservation
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('paid') }}">
+                                            <i class="fas fa-check" style="margin-right: 5px"></i>
+                                            Confirmed Paid
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('notPaid') }}">
+                                            <i class="fas fa-truck-loading" style="margin-right: 5px"></i>
+                                            Not Paid
+                                        </a>
+                                    </li>
+                                   
+                                </ul>                  
+                            </div>                        
                             </div>
-                            </a>
                         </li>
                         <li >
                             <a href="{{route('specialityShow')}}">
