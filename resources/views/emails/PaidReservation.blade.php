@@ -7,7 +7,7 @@
             Name
         </b>
     </h3>
-    <p>{{ $reservation['name'] }}</p>
+    <p>{{ $transaction->reservation['name'] }}</p>
 </div>
 
 <div>
@@ -16,7 +16,7 @@
             Email Address
         </b>
     </h3>
-    <p>{{ $reservation['email'] }}</p>
+    <p>{{ $transaction->reservation['email'] }}</p>
 </div>
 
 <div>
@@ -25,7 +25,7 @@
             Phone Number
         </b>
     </h3>
-    <p>{{ $reservation['phone'] }}</p>
+    <p>{{ $transaction->reservation['phone'] }}</p>
 </div>
 
 <div>
@@ -34,7 +34,7 @@
             Reservation Date
         </b>
     </h3>
-    <p>{{ $reservation['booking_date'] }}</p>
+    <p>{{ $transaction->reservation['booking_date'] }}</p>
 </div>
 
 <div>
@@ -43,7 +43,7 @@
             Reservation Time
         </b>
     </h3>
-    <p>{{ $reservation['booking_time'] }}</p>
+    <p>{{ $transaction->reservation['booking_time'] }}</p>
 </div>
 
 <div>
@@ -52,17 +52,10 @@
             Unique Code
         </b>
     </h3>
-    <p>{{ $reservation['random'] }}</p>
+    <p>{{ $transaction->reservation['random'] }}</p>
     
 </div>
 
-<div>
-    <h3>
-        <b>
-           QR Code
-        </b>
-    </h3>
-    {!!QrCode::size(200)->generate($reservation['random']);!!}
-    
-</div>
+{!! DNS1D::getBarcodeHTML($transaction->reservation['random'], "C128",2.5,50) !!}
+ 
 @endcomponent

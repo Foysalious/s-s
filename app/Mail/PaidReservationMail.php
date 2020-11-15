@@ -7,20 +7,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Milon\Barcode\BarcodeServiceProvider;
 
 class PaidReservationMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $reservation;
+    public $transaction;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($reservation)
+    public function __construct($transaction)
     {
-        $this->reservation=$reservation;
+        $this->transaction=$transaction;
     }
 
     /**
@@ -30,6 +31,6 @@ class PaidReservationMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.PaidReservation',['resarvation' => $this->reservation]);
+        return $this->markdown('emails.PaidReservation',['transaction' => $this->transaction]);
     }
 }

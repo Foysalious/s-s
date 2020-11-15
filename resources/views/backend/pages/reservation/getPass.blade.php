@@ -62,7 +62,9 @@
            QR Code
         </b>
     </h3>
-    {!!QrCode::size(200)->generate($reservation['random']);!!}
+   
+    
+    {!! DNS1D::getBarcodeHTML($reservation['random'], "C128",2.5,50) !!}
     
 </div>
 

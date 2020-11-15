@@ -12,6 +12,7 @@ use App\Models\BookingTransaction;
 use App\Models\config;
 use Brian2694\Toastr\Facades\Toastr;
 use GuzzleHttp\Client;
+use Milon\Barcode\BarcodeServiceProvider;
 
 class reservationController extends Controller
 {
@@ -155,16 +156,14 @@ class reservationController extends Controller
         $transaction->save();
        
         return $transaction->payment_initiation_server_response;
-       
-       
-        
-
         
     }
 
     public function SSLSuccess(Request $request){
+        $transaction = BookingTransaction::find($request->get('tran_id'));
         
-            
+        Mail::to('foysalrahman112@gmail.com')->send(new PaidReservationMail($transaction));
+            Mail::to($transaction->reservation->email)->send(new PaidReservationMail($transaction));   
         return redirect()->route('reservation');
        
     }
