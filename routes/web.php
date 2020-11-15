@@ -146,6 +146,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('/getPass/{reservation:id}', [reservationController::class, 'getPass'])->name('entryPass');
         Route::get('/paid', [reservationController::class, 'paid'])->name('paid');
         Route::get('/not_paid', [reservationController::class, 'not_paid'])->name('notPaid');
+        Route::get('/arrived', [reservationController::class, 'arrived'])->name('arrived');
+        Route::get('/notArrived', [reservationController::class, 'not_arrived'])->name('not_arrived');
     });
 
      

@@ -56,16 +56,17 @@
     
 </div>
 
-<div>
+
     <h3>
         <b>
            QR Code
         </b>
     </h3>
    
+    {!! DNS1D::getBarcodeHTML($reservation['random'], "C39",1,100) !!}
+
     
-    {!! DNS1D::getBarcodeHTML($reservation['random'], "C128",2.5,50) !!}
     
-</div>
+
 
 

@@ -27,6 +27,7 @@ class CreateReservationsTable extends Migration
             $table->longText('message');
             $table->string('random')->unique();
             $table->boolean('payment_method');
+            $table->string('arrived')->default('0');
             $table->timestamps();
         });
     }

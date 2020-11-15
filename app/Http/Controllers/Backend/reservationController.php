@@ -46,6 +46,18 @@ class reservationController extends Controller
         $reservations = reservation::orderBy('id','desc')->where('payment_method',1)->get();
         return view('backend.pages.reservation.notPaid',compact('reservations'));
     }
+
+    public function arrived()
+    {
+        $reservations = reservation::orderBy('id','desc')->where('arrived',1)->get();
+        return view('backend.pages.reservation.arrived',compact('reservations'));
+    }
+
+    public function not_arrived()
+    {
+        $reservations = reservation::orderBy('id','desc')->where('arrived',0)->get();
+        return view('backend.pages.reservation.notArrived',compact('reservations'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -234,6 +246,7 @@ class reservationController extends Controller
         $reservation->email=$request->email;
         $reservation->phone=$request->phone;
         $reservation->payment_method=$request->payment_method;
+        $reservation->arrived=$request->arrived;
        
         $reservation->save();
         Toastr::success('Reservation Updated');

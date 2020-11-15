@@ -49,45 +49,60 @@
                 <form action="{{ route('makeOnSpotReservation') }}" class="ajax-form" method="post">
 
                     <div class="col-md-6">
-                        <input type="date" name="booking_date" placeholder="Date" class="form-control"  />
+                        <input type="date" name="booking_date" id="start_date" placeholder="Date" class="form-control"  />
+                    </div>
+                    <script>
+                        var today = new Date();
+                        var dd = String(today.getDate()).padStart(2, '0');
+                        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                        var yyyy = today.getFullYear();
+
+                        today = yyyy + "-" + mm + "-"+ dd;
+                        
+                        document.getElementById('start_date').setAttribute("min", today)
+              
+
+                        
+
+                        
+
+                    </script>
+                    <div class="col-md-6">
+                        <input type="time" name="booking_time" placeholder="Time" class="form-control"  required />
                     </div>
 
                     <div class="col-md-6">
-                        <input type="time" name="booking_time" placeholder="Time" class="form-control"  />
+                        <input type="text" name="adult" oninput="updatePrice()" placeholder="Adult" id="adult_pricing" data-price="{{App\Models\config::where('name', 'Adult')->first()->price}}" class="form-control"  required />
                     </div>
 
                     <div class="col-md-6">
-                        <input type="text" name="adult" oninput="updatePrice()" placeholder="Adult" id="adult_pricing" data-price="{{App\Models\config::where('name', 'Adult')->first()->price}}" class="form-control"  />
+                        <input type="text" oninput="updatePrice()" name="child_under_120_cm" id="child_under_120_cm" placeholder="Child under 120 cm" class="form-control" data-price="{{App\Models\config::where('name', 'Child Under 120 cm')->first()->price}}" required />
                     </div>
 
                     <div class="col-md-6">
-                        <input type="text" oninput="updatePrice()" name="child_under_120_cm" id="child_under_120_cm" placeholder="Child under 120 cm" class="form-control" data-price="{{App\Models\config::where('name', 'Child Under 120 cm')->first()->price}}" />
+                        <input type="text" name="name" placeholder="Name" class="form-control" required />
                     </div>
 
                     <div class="col-md-6">
-                        <input type="text" name="name" placeholder="Name" class="form-control"  />
+                        <input type="email" name="email" class="form-control" placeholder="Email" required />
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="phone" placeholder="Phone" class="form-control" required />
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="child_under_132_cm" id="child_under_132_cm" placeholder="Child under 132 cm" oninput="updatePrice()" data-price="{{App\Models\config::where('name', 'Child under 132cm')->first()->price}}" class="form-control" required />
                     </div>
 
                     <div class="col-md-6">
-                        <input type="email" name="email" class="form-control" placeholder="Email"  />
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" name="phone" placeholder="Phone" class="form-control"  />
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" name="child_under_132_cm" id="child_under_132_cm" placeholder="Child under 132 cm" oninput="updatePrice()" data-price="{{App\Models\config::where('name', 'Child under 132cm')->first()->price}}" class="form-control"  />
+                        <input type="text" name="city" placeholder="City" class="form-control" required />
                     </div>
 
                     <div class="col-md-6">
-                        <input type="text" name="city" placeholder="City" class="form-control"  />
-                    </div>
-
-                    <div class="col-md-6">
-                        <input type="text" name="country" placeholder="Country" class="form-control"  />
+                        <input type="text" name="country" placeholder="Country" class="form-control" required />
                     </div>
 
                     <div class="col-md-12">
-                        <textarea class="form-control" placeholder="Address" name="address" rows="2"></textarea>
+                        <textarea class="form-control" placeholder="Address" name="address" required rows="2"></textarea>
                     </div>
 
                     <div class="col-md-12">
@@ -104,8 +119,8 @@
                     <div class="col-md-12">
                           <div class="form-check">
                             <div>
-                                <input class="form-check-input" type="radio" name="payment_method" required  id="exampleRadios2" value="1">
-                                <label class="form-check-label" for="exampleRadios2">
+                                <input class="form-check-input" type="radio" name="payment_method" required  id="on_spot_payment" value="1">
+                                <label class="form-check-label" for="on_spot_payment">
                               On Spot Payment
                             </label>
                             </div>
@@ -114,8 +129,8 @@
                     <div class="col-md-12">
                           <div class="form-check">
                             <div>
-                                <input class="form-check-input" type="radio" name="payment_method" required  id="exampleRadios2" value="2">
-                                <label class="form-check-label" for="exampleRadios2">
+                                <input class="form-check-input" type="radio" name="payment_method" required  id="online_payment" value="2">
+                                <label class="form-check-label" for="online_payment">
                               Online Payment
                             </label>
                             </div>

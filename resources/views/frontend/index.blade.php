@@ -24,7 +24,7 @@
                                    <h1 class="text-center">L'autre Partie </h1>
                                    <h3 class="text-center">powered by Sygmaz</h3>
                                    <div class="reservation-button">
-                                        <a href="#reservation" >Reservation</a>
+                                        <a href="{{ route('reservation') }}" >Reservation</a>
                                    </div>
                               </div>
                          </div>
@@ -43,7 +43,7 @@
                                    <h1 class="text-center">L'autre Partie </h1>
                                    <h3 class="text-center">powered by Sygmaz</h3>
                                    <div class="reservation-button">
-                                        <a href="#reservation" >Reservation</a>
+                                        <a href="{{ route('reservation') }}" >Reservation</a>
                                    </div>
                               </div>
                          </div>

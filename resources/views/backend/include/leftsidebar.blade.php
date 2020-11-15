@@ -207,6 +207,18 @@
                                             Not Paid
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="{{ route('not_arrived') }}">
+                                            <i class="fas fa-truck-loading" style="margin-right: 5px"></i>
+                                            Not Arrived
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('arrived') }}">
+                                            <i class="fas fa-truck-loading" style="margin-right: 5px"></i>
+                                            Arrived
+                                        </a>
+                                    </li>
                                    
                                 </ul>                  
                             </div>                        
@@ -239,7 +251,7 @@
                        
                         <!-- nav drop down view start -->
                         <li>
-                            <div class="row navbar-dropdown-top" id="2">
+                            <div class="row navbar-dropdown-top" id="3">
                             <div class="col-md-10  col-10">
                                 <a>selling history     </a>      
                             </div>    
@@ -247,7 +259,7 @@
                                 <i class="fas fa-angle-down"></i>                            
                             </div>                      
                             </div>
-                            <div class="row navbar-dropdown-child 2">
+                            <div class="row navbar-dropdown-child 3">
                             <div class="col-md-12">
                                 <ul>
                                     <li>

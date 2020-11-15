@@ -84,3 +84,8 @@ $('#image3').change(function(){
     reader.readAsDataURL(this.files[0]); 
 
 });
+
+window.onload = function(){
+	$("input[type=search]").focus();
+}
+	
